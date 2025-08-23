@@ -2,10 +2,14 @@ on:
   push:
     branch: ["master"]
 
+env:
+  DOCKER_IMAGE_NAME: k8s-reactjs-dev09
+
 # build docker image, push to dockerhub
 jobs:
   ci-job:
     runs-on: ubuntu-latest
+    environment: DOCKER_ENV
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -17,5 +21,22 @@ jobs:
       - name: SHow the SHA value 
         run : |
           echo "TAG = ${{env.TAG}}"
+
+      - name: Loigin to dockerhub
+        run: |
+          echo "${{ secrets.PASSWORD }}" | docker login -u ${{ secrets.USERNAME }} --password-stdin
+
+      - name: Build and Tag 
+        run: |
+          docker build -t ${{ secrets.USERNAME }}/{{ $env.DOCKER_IMAGE_NAME }}:${{env.TAG}} .
+
+      - name: Push to Dockerhub 
+        run: |
+          docker push ${{ secrets.USERNAME }}/{{ $env.DOCKER_IMAGE_NAME }}:${{env.TAG}}
+
+      - name: Logout from Dockerhub
+        run : |
+          docker logout
+
 
 # update hrlm repo with new image
