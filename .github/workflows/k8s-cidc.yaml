@@ -1,0 +1,21 @@
+on:
+  push:
+    branch: ["master"]
+
+# build docker image, push to dockerhub
+jobs:
+  ci-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        users: actions/checkout@v3
+      
+      - name: Using Commit SHA 
+        run: |
+          echo "TAG=${GITHUB_SHA::8}" >> $GITHUB_ENV
+      
+      - name: SHow the SHA value 
+        run : |
+          echo "TAG = ${env.tag}"
+
+# update hrlm repo with new image
