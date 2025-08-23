@@ -28,11 +28,11 @@ jobs:
 
       - name: Build and Tag 
         run: |
-          docker build -t ${{ secrets.USERNAME }}/{{ $env.DOCKER_IMAGE_NAME }}:${{env.TAG}} .
+          docker build -t ${{ secrets.USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}:${{env.TAG}} .
 
       - name: Push to Dockerhub 
         run: |
-          docker push ${{ secrets.USERNAME }}/{{ $env.DOCKER_IMAGE_NAME }}:${{env.TAG}}
+          docker push ${{ secrets.USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}:${{env.TAG}}
 
       - name: Logout from Dockerhub
         run : |
