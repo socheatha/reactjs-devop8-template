@@ -16,6 +16,6 @@ jobs:
       
       - name: SHow the SHA value 
         run : |
-          echo "TAG = ${{env.tag}}"
+          echo "TAG = ${{env.TAG}}"
 
 # update hrlm repo with new image
