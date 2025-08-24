@@ -64,7 +64,7 @@ jobs:
           cd helm_repo/dir_name
 
           echo "Upate repositoty part of value file"
-          yq -i ".image.repository=\"${{ secrets.USERNAME }/${{ env.DOCKER_IMAGE_NAME }}\"" values.yaml
+          yq -i ".image.repository=\"${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}\"" values.yaml
 
           echo "Update image tag"
           yq -i ".image.tag=\"${{ env.TAG }}\"" values.yaml
