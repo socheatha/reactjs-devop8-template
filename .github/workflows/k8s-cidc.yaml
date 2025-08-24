@@ -4,7 +4,7 @@ on:
 
 env:
   DOCKER_IMAGE_NAME: k8s-reactjs-dev09
-  HELM_REPO : https://github.com/socheatha/reactjs-plants-chart.git
+  HELM_REPO : socheatha/reactjs-plants-chart.git
 
 # build docker image, push to dockerhub
 jobs:
@@ -57,7 +57,7 @@ jobs:
 
       - name: Clone argocd repo 
         run: |
-          git clone ${{ env.HELM_REPO }} helm_repo 
+          git clone https://github.com/${{ env.HELM_REPO }} helm_repo 
 
       - name: Update Helm Chart 
         run: | 
@@ -72,8 +72,8 @@ jobs:
           git config --global user.email "username@example.com"
           git config --global user.name "dummyname"
           git add .
-          git commit -m "Update image to ${{ env.TAG }}"
-          git push https://${{ secrets.DOCKER_USERNAME }}:${{ secrets:GIT_TOKEN }}@github.com/socheatha/reactjs-plants-chart.git
+          git commit -m "Update helm to use image ${{ env.TAG }}"
+          git push https://${{ secrets.GIT_TOKEN }}@github.com/${{ env.HELM_REPO }}
 
       - name: Clean up 
         run: |
